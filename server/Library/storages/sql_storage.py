@@ -1,6 +1,6 @@
 from Library.storages.istorage import IStorage
 from Library.library_units.book import Book
-from Library.library_units.people import People
+from Library.library_units.readers import People
 from Library.utils import logprint
 import sqlalchemy
 from sqlalchemy import Column, Integer, Text, ForeignKey

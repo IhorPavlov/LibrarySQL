@@ -26,6 +26,7 @@ class ClientHandler(Thread):
         self.__connection = conn
         self.__lib = lib
 
+
     def run(self) -> None:
         send_msg(welcome_msg.encode(default_encoding), self.__connection)
         start = time.time()
@@ -105,8 +106,8 @@ class ClientHandler(Thread):
             # 6 - add book to library
             if answer == 6:
                 start = time.time()
-                name = self.custom_input('Enter book\'s name: ')
-                if not name:
+                title = self.custom_input('Enter book\'s name: ')
+                if not title:
                     logprint.print_fail('No answer')
                     break
 
@@ -120,7 +121,7 @@ class ClientHandler(Thread):
                     logprint.print_fail('No answer')
                     break
 
-                _, retStr = self.__lib.add_book(name, author, year)
+                _, retStr = self.__lib.add_book(title, author, year)
                 send_msg((retStr + '\n\n' + welcome_msg).encode(default_encoding), self.__connection)
                 logprint.print_warning(f'time "add book" {time.time() - start}')
 

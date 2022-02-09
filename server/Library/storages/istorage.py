@@ -1,11 +1,27 @@
 from abc import ABC, abstractmethod
-
 from Library.library_units.book import Book
-from Library.library_units.people import People
+from Library.library_units.readers import Reader
 import os
 from Library.utils import logprint
 
 class IStorage(ABC):
+
+    ############# BOOKS
+    @abstractmethod
+    def add_book(self, obj_book) -> bool:
+        pass
+
+    @abstractmethod
+    def remove_book(self, obj_book) -> bool:
+        pass
+
+    @abstractmethod
+    def update_book(self, book_id, reader_id) -> bool:
+        pass
+
+    @abstractmethod
+    def add_books(self, books: list):
+        pass
 
     @abstractmethod
     def load_books(self) -> list:
@@ -15,13 +31,36 @@ class IStorage(ABC):
     def load_readers(self) -> list:
         pass
 
+    ############# READERS
     @abstractmethod
-    def save_books(self, list_Books: list):
+    def add_reader(self, obj_reader) -> bool:
         pass
 
     @abstractmethod
-    def save_readers(self, list_People: list):
+    def remove_reader(self, obj_reader) -> bool:
         pass
+
+    @abstractmethod
+    def update_reader(self, obj_reader) -> bool:
+        pass
+
+    @abstractmethod
+    def add_readers(self, readers: list):
+        pass
+
+    @abstractmethod
+    def load_reader_by_email(self, email: str) -> Reader:
+        pass
+
+    @abstractmethod
+    def load_reader_by_id(self, id_: int) -> Reader:
+        pass
+
+    @abstractmethod
+    def return_book(self, book_id, reader_id) -> bool:
+        pass
+
+    ############# FROM FILE
 
     @staticmethod
     def load_books_from_txt_file(filename: str,
@@ -57,7 +96,7 @@ class IStorage(ABC):
         with open(filename, encoding=encoding) as _file:
             for _line in _file:
                 _line_list = _line.strip().split(sep)
-                _res_readers_list.append(People(
+                _res_readers_list.append(Reader(
                     _line_list[0],     # name
                     _line_list[1],  # surname
                     int(_line_list[2]) #year
